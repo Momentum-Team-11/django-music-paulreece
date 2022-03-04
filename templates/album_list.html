@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+        
+        {% for artist in artists %}
+    <h1><a href="{% url 'artist_detail' pk=artist.pk %}">{{ artist.artist }}</a></h1>
+    {% for album in albums %}
+{% if artist.id == album.the_artist.id %}
+    <h3><a href="{% url 'album_detail' pk=album.pk %}">{{ album.title }}{% if album.favorite %}
+        {{ album.favorite }}
+        {% endif %}</a></h3>
+        <ul>{{album.created_at}}</ul>
+        <ul><a href="{% url 'edit_album' pk=album.pk %}">Edit Album</a></ul>
+        <ul><a href="{% url 'delete_album' pk=album.pk %}">Delete Album</a></ul>
+        <ul><a href="{% url 'favorite_album' pk=album.pk %}">Add to Favorites</a><a href="{% url 'remove_favorite' pk=album.pk %}">        Remove Favorite</a></ul>
+      
+        
+        {% endif %}
+
+
+        {% endfor %}
+
+    {% endfor %}
+{% endblock %}
